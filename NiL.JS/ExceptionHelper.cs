@@ -351,6 +351,14 @@ internal static class ExceptionHelper
     /// <exception cref="NiL.JS.Core.JSException">
     /// </exception>
     [DebuggerStepThrough]
+    internal static void ThrowReferenceError(string message, CodeNode exceptionMaker, Context context)
+    {
+        Throw(new ReferenceError(message), exceptionMaker, context);
+    }
+
+    /// <exception cref="NiL.JS.Core.JSException">
+    /// </exception>
+    [DebuggerStepThrough]
     internal static void ThrowReferenceError(string message, string code, int position, int length)
     {
         var cord = CodeCoordinates.FromTextPosition(code, position, 0);
