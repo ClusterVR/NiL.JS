@@ -13,7 +13,7 @@ echo "VERSION: $VERSION.$REVISION"
     internal const string Year = ""$(get-date -Format yyyy)"";
 }")
 cd NiL.JS
-dotnet build -c Release -property:VersionPrefix=$VERSION.$($REVISION) -property:SignAssembly=true
-dotnet pack -c Release -property:VersionPrefix=$VERSION.$($REVISION) -property:SignAssembly=true
+dotnet build -c Release -property:VersionPrefix=$VERSION.$($REVISION) -property:SignAssembly=false
+dotnet pack -c Release -property:VersionPrefix=$VERSION.$($REVISION) -property:SignAssembly=false
 mv -Force bin/release/NiL.JS.$VERSION.$($REVISION).nupkg ../nuget/NiL.JS.$VERSION.$($REVISION).nupkg
 cd ..
