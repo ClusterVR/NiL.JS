@@ -63,7 +63,7 @@ public abstract class CodeNode
 
     protected internal virtual JSValue EvaluateForWrite(Context context)
     {
-        ExceptionHelper.ThrowReferenceError(Strings.InvalidLefthandSideInAssignment);
+        ExceptionHelper.ThrowReferenceError(Strings.InvalidLefthandSideInAssignment, this, context);
         return null;
     }
 
