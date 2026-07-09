@@ -12,6 +12,8 @@ namespace NiL.JS.BaseLibrary;
 #endif
 public sealed class RegExp : CustomType
 {
+    static readonly TimeSpan Timeout = TimeSpan.FromMilliseconds(500);
+
     private struct RegExpCacheItem
     {
         public string key;
@@ -38,7 +40,7 @@ public sealed class RegExp : CustomType
         _global = false;
         _sticky = false;
         _unicode = false;
-        _regex = new Regex("");
+        _regex = new Regex("", RegexOptions.None, Timeout);
     }
 
     private void makeRegex(Arguments args)
@@ -149,7 +151,7 @@ public sealed class RegExp : CustomType
                 if (_unicode)
                     pattern = translateToUnicodePattern(pattern);
 
-                _regex = new Regex(pattern, options);
+                _regex = new Regex(pattern, options, Timeout);
 
                 _cacheIndex = (_cacheIndex + 1) % _cacheSize;
                 _cache[_cacheIndex].key = label;
