@@ -264,7 +264,7 @@ public static class Parser
                     if (withAssignment)
                     {
                         Tools.SkipSpaces(code, ref index);
-                        return code[index] is '=';
+                        return index < code.Length && code[index] == '=';
                     }
                     else
                         return true;
