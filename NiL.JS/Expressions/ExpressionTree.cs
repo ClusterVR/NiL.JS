@@ -1189,20 +1189,13 @@ public sealed class ExpressionTree : Expression
             if (Parser.ValidateName(state.Code, ref i, state.Strict))
             {
                 var name = Tools.Unescape(state.Code.Substring(start, i - start), state.Strict);
-                if (name == "undefined")
-                {
-                    operand = new Constant(JSValue.undefined);
-                }
+                JSValue jsName = null;
+                if (!state.StringConstants.TryGetValue(name, out jsName))
+                    state.StringConstants[name] = jsName = name;
                 else
-                {
-                    JSValue jsName = null;
-                    if (!state.StringConstants.TryGetValue(name, out jsName))
-                        state.StringConstants[name] = jsName = name;
-                    else
-                        name = jsName._oValue.ToString();
+                    name = jsName._oValue.ToString();
 
-                    operand = new Variable(name, state.LexicalScopeLevel);
-                }
+                operand = new Variable(name, state.LexicalScopeLevel);
             }
             else if (Parser.ValidateValue(state.Code, ref i))
             {
