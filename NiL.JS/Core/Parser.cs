@@ -379,15 +379,16 @@ public static class Parser
                         else
                         {
                             var balance = 0;
-                            while (balance >= 0 && (code[index] != ',' && code[index] != ')'))
+                            while (balance > 0 || (code[index] != ',' && code[index] != ')'))
                             {
-                                if (code[index] == '(')
+                                if (code[index] is '(' or '[' or '{')
                                     balance++;
-
-                                if (code[index] == ')')
+                                else if (code[index] is ')' or ']' or '}')
                                     balance--;
 
                                 index++;
+                                if (code.Length == index)
+                                    return false;
                             }
                         }
                     }
